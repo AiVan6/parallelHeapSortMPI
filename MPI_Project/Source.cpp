@@ -54,41 +54,8 @@ void sort(int arr[], int n)
 	}
 }
 
-/*void parallelHeapSort(int arr[], int n, int rank, int size) {
-	// Разделение данных между процессами
-	int localSize = n / size;
-	int* localArray = new int[localSize];
-	MPI_Scatter(arr, localSize, MPI_INT, localArray, localSize, MPI_INT, 0, MPI_COMM_WORLD);
-
-	// Пирамидальная сортировка на каждом процессе
-	for (int i = localSize / 2 - 1; i >= 0; i--) {
-		heapify(localArray, localSize, i);
-	}
-
-	// Сбор отсортированных данных
-	MPI_Gather(localArray, localSize, MPI_INT, arr, localSize, MPI_INT, 0, MPI_COMM_WORLD);
-
-	//
-
-	// Конечная пирамидальная сортировка на процессе с рангом 0
-	if (rank == 0) {
-		for (int i = n / 2 - 1; i >= 0; i--) {
-			heapify(arr, n, i);
-		}
-		for (int i = n - 1; i >= 0; i--) {
-			std::swap(arr[0], arr[i]);
-			heapify(arr, i, 0);
-		}
-	}
-
-	delete[] localArray;
-}*/
-
-
 void parallelHeapSort(int* Start_Array, int Start_Array_Size,int rank, int size) {
 	int tempArray = Start_Array_Size / size;
-
-	//std::cout << "Work Array Size = " << tempArray << '\n';
 
 	int* Work_Array = Start_Array + rank * tempArray;
 
